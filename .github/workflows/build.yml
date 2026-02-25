@@ -11,7 +11,7 @@ jobs:
 
     steps:
       # 1️⃣ Checkout repo
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       # 2️⃣ Set up JDK 21
@@ -27,11 +27,7 @@ jobs:
 
       # 4️⃣ Build signed APK
       - name: Build Release APK
-        run: ./gradlew assembleRelease \
-          -Pandroid.injected.signing.store.file=app/brahman-release-key.jks \
-          -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
-          -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
-          -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=app/brahman-release-key.jks -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
 
       # 5️⃣ Upload APK as artifact
       - name: Upload APK
