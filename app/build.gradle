@@ -5,15 +5,14 @@ plugins {
 
 android {
     namespace 'com.brahmanlabs.browser'
-    compileSdkVersion 34    // Latest SDK, required
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.brahmanlabs.browser"
-        minSdkVersion 24      // Android 7+
-        targetSdkVersion 34   // Matches compileSdkVersion
+        minSdkVersion 24
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -46,14 +45,19 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.3.0'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.6'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.0'
