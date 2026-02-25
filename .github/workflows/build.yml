@@ -34,7 +34,7 @@ jobs:
 
       # 5️⃣ Upload APK as artifact
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.2.0
         with:
           name: BrahmanBrowser-APK
           path: app/build/outputs/apk/release/app-release.apk
