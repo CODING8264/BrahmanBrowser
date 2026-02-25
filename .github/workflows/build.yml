@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo
-      - name: Checkout repository
+      # 1️⃣ Checkout the repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       # 2️⃣ Setup JDK 21
@@ -25,14 +25,13 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      # 4️⃣ Build the signed APK
+      # 4️⃣ Build the APK with environment variables for keystore
       - name: Build Release APK
-        run: |
-          ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=brahman-release-key.jks \
-            -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} \
-            -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} \
-            -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew assembleRelease
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       # 5️⃣ Upload APK as artifact
       - name: Upload APK
