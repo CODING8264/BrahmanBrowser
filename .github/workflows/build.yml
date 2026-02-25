@@ -21,11 +21,11 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      # 3️⃣ Grant execute permission for gradlew
+      # 3️⃣ Make gradlew executable
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      # 4️⃣ Build signed APK
+      # 4️⃣ Build Release APK (one-line safe command)
       - name: Build Release APK
         run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=app/brahman-release-key.jks -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
 
