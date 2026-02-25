@@ -25,11 +25,19 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      # 4️⃣ Build Release APK (one-line safe command)
-      - name: Build Release APK
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file=app/brahman-release-key.jks -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
+      # 4️⃣ Decode Keystore from Secret
+      - name: Decode Keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/brahman-release-key.jks
 
-      # 5️⃣ Upload APK as artifact
+      # 5️⃣ Build Release APK
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      # 6️⃣ Upload APK as artifact
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
