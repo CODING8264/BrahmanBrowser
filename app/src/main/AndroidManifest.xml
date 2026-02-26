@@ -1,21 +1,53 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yourpackage.brahman">
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Brahman Browser — Phase 2: Browser Skeleton
+    AndroidManifest.xml
+-->
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- INTERNET permission -->
+    <!-- Internet permission (will be used in Phase 3 for real browsing) -->
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Optional: check network state -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Storage for downloads (Phase 3+) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
+        android:name=".BrahmanApp"
         android:allowBackup="true"
-        android:label="Brahman"
-        android:theme="@style/Theme.Brahman">
-        <activity android:name=".MainActivity">
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Brahman"
+        android:hardwareAccelerated="true">
+
+        <!--  Main Browser Activity  -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- Handle web URLs (Phase 3 will use these) -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+
         </activity>
+
     </application>
+
 </manifest>
