@@ -1,4 +1,4 @@
-package com.brahman.browser
+package com.brahmanlabs.browser
 
 import android.app.Application
 
